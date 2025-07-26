@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOSDAC AI Help Bot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .graph-node { transition: all 0.3s ease; }
+        .graph-node:hover { transform: scale(1.05); }
+        .ai-message { animation: fadeIn 0.5s ease-out; }
+        .map-container { height: 400px; background: #e8f4f8; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header Section -->
+        <header class="mb-8 bg-white rounded-xl shadow-sm p-6">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <img src="https://placehold.co/60x60" alt="ISRO MOSDAC logo with satellite imagery motif in blue and white" class="mr-4" />
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">MOSDAC AI Help Bot</h1>
+                        <p class="text-gray-600">Intelligent access to Earth observation data</p>
+                    </div>
+                </div>
+                <nav class="md:ml-auto flex space-x-6">
+                    <a href="#" class="px-3 py-2 text-blue-600 font-medium">Home</a>
+                    <a href="#" class="px-3 py-2 text-gray-600 hover:text-blue-600">Datasets</a>
+                    <a href="#" class="px-3 py-2 text-gray-600 hover:text-blue-600">Research</a>
+                    <a href="#" class="px-3 py-2 text-gray-600 hover:text-blue-600">About</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Chat Interface -->
+            <div class="lg:col-span-2 bg-white rounded-xl shadow-sm overflow-hidden">
+                <div class="p-4 border-b border-gray-200 bg-blue-50">
+                    <h2 class="text-lg font-semibold text-gray-800">Conversational Interface</h2>
+                    <p class="text-sm text-gray-600">Ask about weather, ocean data, or satellite products</p>
+                </div>
+                
+                <div id="chat-container" class="h-96 overflow-y-auto p-4 space-y-4">
+                    <!-- Sample Conversation -->
+                    <div class="ai-message flex">
+                        <div class="mr-3">
+                            <img src="https://placehold.co/40x40" alt="AI assistant avatar showing a friendly robotic face with ISRO color scheme" class="rounded-full" />
+                        </div>
+                        <div class="bg-blue-50 rounded-lg p-3 max-w-3/4">
+                            <p class="text-gray-800">Welcome to MOSDAC AI Assistant. How can I help you with satellite data today? You can ask about:</p>
+                            <ul class="list-disc pl-5 mt-2 text-gray-700">
+                                <li>Recent weather patterns</li>
+                                <li>Oceanographic data</li>
+                                <li>Satellite mission information</li>
+                                <li>Specific geographical queries</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="user-message flex justify-end">
+                        <div class="bg-blue-100 rounded-lg p-3 max-w-3/4">
+                            <p class="text-gray-800">Show me rainfall data for Assam from last monsoon season</p>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-message flex">
+                        <div class="mr-3">
+                            <img src="https://placehold.co/40x40" alt="AI assistant avatar showing a friendly robotic face with ISRO color scheme" class="rounded-full" />
+                        </div>
+                        <div class="bg-blue-50 rounded-lg p-3 max-w-3/4">
+                            <p class="text-gray-800">Here's the rainfall analysis for Assam during the 2023 monsoon season (June-September):</p>
+                            <div class="mt-3 bg-white p-3 rounded border border-gray-200">
+                                <div class="map-container rounded flex items-center justify-center">
+                                    <img src="https://placehold.co/600x300" alt="Color-coded rainfall map of Assam showing precipitation levels across districts with legend" />
+                                </div>
+                                <div class="mt-3">
+                                    <h3 class="font-semibold">Key Findings:</h3>
+                                    <ul class="list-disc pl-5 space-y-1 mt-1">
+                                        <li>Average rainfall: 2150 mm (+12% above normal)</li>
+                                        <li>Heaviest rainfall district: Dibrugarh (2870 mm)</li>
+                                        <li>10 extreme rainfall events recorded</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-sm">
+                                <button class="text-blue-600 hover:text-blue-800 mr-3">View Dataset</button>
+                                <button class="text-blue-600 hover:text-blue-800">Download Report</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-4 border-t border-gray-200 bg-gray-50">
+                    <div class="flex">
+                        <input type="text" placeholder="Ask about weather, ocean data, or satellite products..." 
+                            class="flex-1 px-4 py-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div class="flex">
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 focus:outline-none">
+                                Send
+                            </button>
+                            <button class="ml-2 px-3 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none">
+                                <img src="https://placehold.co/20x20" alt="Microphone icon for voice input in dark gray" />
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mt-2 text-xs text-gray-500">
+                        <span class="mr-3">Supported: English, हिंदी, বাংলা</span>
+                        <span>Sample queries: "Cyclone track", "Ocean temperature trends", "INSAT data"</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Knowledge Graph and Tools Panel -->
+            <div class="space-y-6">
+                <!-- Knowledge Graph Visualization -->
+                <div class="bg-white rounded-xl shadow-sm p-4">
+                    <h3 class="font-semibold text-gray-800 mb-3">Data Relationships</h3>
+                    <div class="bg-gray-50 rounded-lg p-3 h-64">
+                        <svg viewBox="0 0 200 150" class="w-full h-full">
+                            <!-- Central Node -->
+                            <circle cx="100" cy="75" r="15" fill="#3b82f6" class="graph-node"/>
+                            <text x="100" y="75" font-size="8" text-anchor="middle" fill="white">Query</text>
+                            
+                            <!-- Connected Nodes -->
+                            <g class="graph-node">
+                                <circle cx="40" cy="40" r="12" fill="#10b981" />
+                                <text x="40" y="40" font-size="7" text-anchor="middle" fill="white">INSAT-3D</text>
+                                <line x1="85" y1="70" x2="50" y2="45" stroke="#9ca3af" stroke-width="1" />
+                            </g>
+                            
+                            <g class="graph-node">
+                                <circle cx="160" cy="40" r="12" fill="#10b981" />
+                                <text x="160" y="40" font-size="7" text-anchor="middle" fill="white">SCATSAT-1</text>
+                                <line x1="115" y1="70" x2="150" y2="45" stroke="#9ca3af" stroke-width="1" />
+                            </g>
+                            
+                            <g class="graph-node">
+                                <circle cx="40" cy="110" r="12" fill="#10b981" />
+                                <text x="40" y="110" font-size="7" text-anchor="middle" fill="white">Assam</text>
+                                <line x1="85" y1="80" x2="50" y2="105" stroke="#9ca3af" stroke-width="1" />
+                            </g>
+                            
+                            <g class="graph-node">
+                                <circle cx="160" cy="110" r="12" fill="#10b981" />
+                                <text x="160" y="110" font-size="7" text-anchor="middle" fill="white">Monsoon</text>
+                                <line x1="115" y1="80" x2="150" y2="105" stroke="#9ca3af" stroke-width="1" />
+                            </g>
+                        </svg>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">Interactive knowledge graph showing relationships between your query and MOSDAC datasets</p>
+                </div>
+                
+                <!-- Quick Access Tools -->
+                <div class="bg-white rounded-xl shadow-sm p-4">
+                    <h3 class="font-semibold text-gray-800 mb-3">Quick Access</h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button class="p-3 bg-blue-50 rounded-lg hover:bg-blue-100 text-sm">
+                            <div class="flex items-center">
+                                <img src="https://placehold.co/24x24" alt="Satellite icon in blue" class="mr-2" />
+                                <span>Mission Catalog</span>
+                            </div>
+                        </button>
+                        <button class="p-3 bg-blue-50 rounded-lg hover:bg-blue-100 text-sm">
+                            <div class="flex items-center">
+                                <img src="https://placehold.co/24x24" alt="Map location pin icon in green" class="mr-2" />
+                                <span>Region Search</span>
+                            </div>
+                        </button>
+                        <button class="p-3 bg-blue-50 rounded-lg hover:bg-blue-100 text-sm">
+                            <div class="flex items-center">
+                                <img src="https://placehold.co/24x24" alt="Calendar icon in orange" class="mr-2" />
+                                <span>Time Series</span>
+                            </div>
+                        </button>
+                        <button class="p-3 bg-blue-50 rounded-lg hover:bg-blue-100 text-sm">
+                            <div class="flex items-center">
+                                <img src="https://placehold.co/24x24" alt="Download icon in purple" class="mr-2" />
+                                <span>Bulk Download</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Recent Activities -->
+                <div class="bg-white rounded-xl shadow-sm p-4">
+                    <h3 class="font-semibold text-gray-800 mb-3">Recent Activities</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <div class="bg-green-100 rounded-full p-1 mr-2">
+                                <img src="https://placehold.co/16x16" alt="Green checkmark icon indicating success" />
+                            </div>
+                            <span>Updated INSAT-3D SST dataset (2023-12-15)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="bg-blue-100 rounded-full p-1 mr-2">
+                                <img src="https://placehold.co/16x16" alt="Blue information icon" />
+                            </div>
+                            <span>New research: Monsoon prediction models</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="bg-yellow-100 rounded-full p-1 mr-2">
+                                <img src="https://placehold.co/16x16" alt="Yellow warning icon" />
+                            </div>
+                            <span>Scheduled maintenance: Jan 5, 2-4 AM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="mt-12 text-center text-sm text-gray-500">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="hover:text-blue-600">Privacy Policy</a>
+                <a href="#" class="hover:text-blue-600">Terms of Use</a>
+                <a href="#" class="hover:text-blue-600">Contact MOSDAC</a>
+                <a href="#" class="hover:text-blue-600">Feedback</a>
+            </div>
+            <p>© 2023 ISRO MOSDAC - Meteorological and Oceanographic Satellite Data Archival Centre</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple chat interaction simulation
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatInput = document.querySelector('input[type="text"]');
+            const sendButton = document.querySelector('button.bg-blue-600');
+            
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    // Add user message
+                    const chatContainer = document.getElementById('chat-container');
+                    const userDiv = document.createElement('div');
+                    userDiv.className = 'user-message flex justify-end';
+                    userDiv.innerHTML = `
+                        <div class="bg-blue-100 rounded-lg p-3 max-w-3/4">
+                            <p class="text-gray-800">${message}</p>
+                        </div>
+                    `;
+                    chatContainer.appendChild(userDiv);
+                    
+                    // Simulate AI typing
+                    setTimeout(() => {
+                        const typingDiv = document.createElement('div');
+                        typingDiv.className = 'ai-message flex';
+                        typingDiv.innerHTML = `
+                            <div class="mr-3">
+                                <img src="https://placehold.co/40x40" alt="AI assistant avatar showing a friendly robotic face with ISRO color scheme" class="rounded-full" />
+                            </div>
+                            <div class="bg-blue-50 rounded-lg p-3 max-w-3/4">
+                                <p class="text-gray-800">Processing your request about "${message}"...</p>
+                            </div>
+                        `;
+                        chatContainer.appendChild(typingDiv);
+                        chatContainer.scrollTop = chatContainer.scrollHeight;
+                        
+                        // Simulate response after delay
+                        setTimeout(() => {
+                            typingDiv.innerHTML = `
+                                <div class="mr-3">
+                                    <img src="https://placehold.co/40x40" alt="AI assistant avatar showing a friendly robotic face with ISRO color scheme" class="rounded-full" />
+                                </div>
+                                <div class="bg-blue-50 rounded-lg p-3 max-w-3/4">
+                                    <p class="text-gray-800">Here's what I found about "<span class="font-medium">${message}</span>" in MOSDAC datasets:</p>
+                                    <div class="mt-3 bg-white p-3 rounded border border-gray-200">
+                                        <div class="map-container rounded flex items-center justify-center">
+                                            <img src="https://placehold.co/600x300" alt="Generated visualization showing relevant data patterns for the user's query" />
+                                        </div>
+                                        <div class="mt-3 text-sm">
+                                            <p class="font-medium">Summary:</p>
+                                            <p>This data is available from multiple sources including satellite missions and ground stations. Would you like me to narrow down by time period or region?</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            chatContainer.scrollTop = chatContainer.scrollHeight;
+                        }, 1500);
+                    }, 500);
+                    
+                    chatInput.value = '';
+                }
+            }
+            
+            sendButton.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') sendMessage();
+            });
+        });
+    </script>
+</body>
+</html>
